@@ -1,10 +1,13 @@
 import './App.css';
-import SignIn from './components/SignIn';
-import 'devextreme/dist/css/dx.light.css';
+import { Routes, Route } from "react-router-dom";
+import Home from './components/Home';
 
 function App() {
   return (
-    <SignIn/>
+    <Routes>
+    <Route exact path="/" element={<Home/>} />
+    <Route exact path="/ciao" element={<div>ciao</div>} />
+    </Routes>
   );
 }
 
