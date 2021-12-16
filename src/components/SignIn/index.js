@@ -4,8 +4,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import immagine from "./1_ISGtKTBwJem2C7tPfKL4-A.jpg";
-import { FormControl, Grid, MenuItem, Select } from "@mui/material";
+import { FormControl, Grid, MenuItem, Select, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { blue } from "@mui/material/colors";
 
 function SignInCard() {
   const [Users, setUsers] = React.useState("");
@@ -29,8 +30,13 @@ function SignInCard() {
           flexDirection: "column",
         }}
       >
-        <Grid container justifyContent="center" rowSpacing={3}>
+        <Grid container justifyContent="center" rowSpacing={2}>
           <Grid key="1" item>
+            <Typography gutterBottom variant="h4" component="div">
+              WOULD YOU RATHER?
+            </Typography>
+          </Grid>
+          <Grid key="2" item>
             <Box sx={{ width: 400 }}>
               <FormControl fullWidth>
                 <Select
@@ -46,7 +52,7 @@ function SignInCard() {
               </FormControl>
             </Box>
           </Grid>
-          <Grid key="2" item>
+          <Grid key="3" item>
             <Button size="medium" variant="contained">
               Sign In
             </Button>
