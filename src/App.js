@@ -6,7 +6,6 @@ function App() {
   return (
     <Routes>
     <Route exact path="/" element={<Home/>} />
-    <Route exact path="/ciao" element={<div>ciao</div>} />
     </Routes>
   );
 }
