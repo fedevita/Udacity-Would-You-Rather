@@ -110,7 +110,15 @@ const Header = (props) => {
                 </Button>
               ))}
             </Box>
-
+            <Typography
+              sx={{
+                flexGrow: 0,
+                display: { xs: "none", md: "flex" },
+                padding: "1%",
+              }}
+            >
+              Hello, Nome Cognome
+            </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Hi, Name Surname">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
