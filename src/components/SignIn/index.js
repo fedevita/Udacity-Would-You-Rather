@@ -58,12 +58,7 @@ export default function SignIn() {
         }}
       >
         <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            component="img"
-            alt="green iguana"
-            height="140"
-            image={logo}
-          />
+          <CardMedia component="img" alt="logo" height="140" image={logo} />
           <CardContent>
             <Typography
               gutterBottom
