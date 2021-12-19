@@ -1,11 +1,10 @@
 import React from "react";
-import ResponsiveAppBar from "../../components/ResponsiveAppBar";
-import SignIn from "../../components/SignIn";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
     <div>
-      <ResponsiveAppBar />
+      <Outlet />
     </div>
   );
 };
