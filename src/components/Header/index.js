@@ -13,14 +13,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import withRouter from "../../utils/withRouter";
 import { Outlet } from "react-router-dom";
-const pages = ["Home", "NewQuestion", "LeaderBoard"];
-const settings = ["Profile", "Logout"];
 
 const Header = (props) => {
   const { navigate } = props.router;
-  console.log(navigate);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const pages = props.pages;
+  const settings = ["Profile", "Logout"];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -83,10 +82,10 @@ const Header = (props) => {
               >
                 {pages.map((page) => (
                   <MenuItem
-                    key={page}
-                    onClick={() => handleClickNavMenu(`/${page}`)}
+                    key={page.id}
+                    onClick={() => handleClickNavMenu(`/${page.id}`)}
                   >
-                    <Typography textAlign="center">{page}</Typography>
+                    <Typography textAlign="center">{page.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -102,11 +101,11 @@ const Header = (props) => {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
-                  key={page}
-                  onClick={() => handleClickNavMenu(`/${page}`)}
+                  key={page.id}
+                  onClick={() => handleClickNavMenu(`/${page.id}`)}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  {page.name}
                 </Button>
               ))}
             </Box>
