@@ -1,9 +1,10 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Main from "./pages/Main";
 import SignInPage from "./pages/SignInPage";
 import { Box } from "@mui/material";
 import Header from "./components/Header";
+import Home from "./pages/Home";
 const pages = [
   { id: "home", name: "Home" },
   { id: "NewQuestion", name: "New Question" },
@@ -16,8 +17,8 @@ function App() {
       {islogged && <Header pages={pages} />}
       <Routes>
         {islogged && (
-          <Route path="" element={<Home />}>
-            <Route path="home" element={<Box>home</Box>}></Route>
+          <Route path="" element={<Main />}>
+            <Route path="home" element={<Home></Home>}></Route>
             <Route path="NewQuestion" element={<Box>NewQuestion</Box>}></Route>
             <Route path="LeaderBoard" element={<Box>LeaderBoard</Box>}></Route>
             <Route path="Profile" element={<Box>Profile</Box>}></Route>

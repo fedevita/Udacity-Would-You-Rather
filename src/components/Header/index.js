@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import withRouter from "../../utils/withRouter";
 import { Outlet } from "react-router-dom";
+import { red } from "@mui/material/colors";
 
 const Header = (props) => {
   const { navigate } = props.router;
@@ -121,7 +122,11 @@ const Header = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Hi, Name Surname">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="/static/images/avatar/2.jpg"
+                    sx={{ bgcolor: red[500], width: 56, height: 56 }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
