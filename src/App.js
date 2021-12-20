@@ -5,6 +5,7 @@ import SignInPage from "./pages/SignInPage";
 import { Box } from "@mui/material";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import NewQuestion from "./pages/NewQuestion";
 const pages = [
   { id: "home", name: "Home" },
   { id: "NewQuestion", name: "New Question" },
@@ -19,7 +20,7 @@ function App() {
         {islogged && (
           <Route path="" element={<Main />}>
             <Route path="home" element={<Home></Home>}></Route>
-            <Route path="NewQuestion" element={<Box>NewQuestion</Box>}></Route>
+            <Route path="NewQuestion" element={<NewQuestion />}></Route>
             <Route path="LeaderBoard" element={<Box>LeaderBoard</Box>}></Route>
             <Route path="Profile" element={<Box>Profile</Box>}></Route>
           </Route>
