@@ -1,8 +1,8 @@
 import { _getQuestions } from "../../../data/_DATA";
 
-const getQuestionsSpi = async (params) => {
+const getQuestionsApi = async (params) => {
   let data = await _getQuestions();
   let response = Object.values(data);
   return response;
 };
-export default getQuestionsSpi;
+export default getQuestionsApi;
