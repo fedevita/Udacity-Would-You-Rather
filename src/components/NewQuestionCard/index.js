@@ -1,91 +1,102 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { useForm } from "react-hook-form";
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Avatar, TextField } from "@mui/material";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function NewQuestionCard() {
-  const classes = useStyles();
-  const { register, handleSubmit, control } = useForm();
-
+  const validationSchema = Yup.object().shape({
+    OptionOne: Yup.string().required("Option One is required"),
+    OptionTwo: Yup.string().required("Option Two is required"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data, null, 2));
+  };
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <AddIcon />
+    <Card
+      sx={{
+        width: { xs: "100%", sm: "100%", md: "90%", lg: "80%", xl: "60%" },
+      }}
+    >
+      <CardContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar
+          sx={{
+            width: "70px",
+            height: "70px",
+            backgroundColor: "secondary.main",
+          }}
+        >
+          <AddCircleIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography variant="h3" component="div" color="textSecondary">
           Create New Question
         </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
+        <TextField
+          required
+          id="OptionOne"
+          name="OptionOne"
+          label="Option One"
+          fullWidth
+          margin="dense"
+          {...register("OptionOne")}
+          error={errors.OptionOne ? true : false}
+        />
+        <Typography variant="inherit" color="error.main">
+          {errors.OptionOne?.message}
+        </Typography>
+        <Typography variant="h5" component="div" color="textSecondary">
+          OR
+        </Typography>
+        <TextField
+          required
+          id="OptionTwo"
+          name="OptionTwo"
+          label="Option Two"
+          fullWidth
+          margin="dense"
+          {...register("OptionTwo")}
+          error={errors.OptionTwo ? true : false}
+        />
+        <Typography variant="inherit" color="error.main">
+          {errors.OptionTwo?.message}
+        </Typography>
+      </CardContent>
+      <CardActions
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit(onSubmit)}
         >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            inputRef={register}
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <Typography component="h1" variant="h5">
-            Or
-          </Typography>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            inputRef={register}
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Submit
-          </Button>
-        </form>
-      </div>
-    </Container>
+          Submit
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
