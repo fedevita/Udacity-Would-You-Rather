@@ -8,10 +8,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import usersReducer from "./features/users";
 import loggedUserReducer from "./features/loggedUser";
+import questionsReducer from "./features/questions";
 const store = configureStore({
   reducer: {
     users: usersReducer,
     loggedUser: loggedUserReducer,
+    questions: questionsReducer,
   },
 });
 ReactDOM.render(

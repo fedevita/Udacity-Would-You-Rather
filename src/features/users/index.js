@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getUsersApi from "../../api/usersApi/getUsers";
-//"https://jsonplaceholder.typicode.com/users"
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
   const response = await getUsersApi();
   return response;
