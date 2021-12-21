@@ -8,18 +8,21 @@ const columns = [
     headerName: "ID",
     width: 200,
     headerAlign: "center",
+    headerClassName: "super-app-theme--header",
   },
   {
     field: "firstName",
     headerName: "First name",
     width: 200,
     headerAlign: "center",
+    headerClassName: "super-app-theme--header",
   },
   {
     field: "lastName",
     headerName: "Last name",
     width: 200,
     headerAlign: "center",
+    headerClassName: "super-app-theme--header",
   },
   {
     field: "answeredQuestions",
@@ -27,6 +30,7 @@ const columns = [
     type: "number",
     width: 200,
     headerAlign: "center",
+    headerClassName: "super-app-theme--header",
   },
   {
     field: "createdQuestions",
@@ -34,6 +38,7 @@ const columns = [
     type: "number",
     width: 200,
     headerAlign: "center",
+    headerClassName: "super-app-theme--header",
   },
   {
     field: "score",
@@ -42,6 +47,7 @@ const columns = [
     width: 200,
     type: "number",
     headerAlign: "center",
+    headerClassName: "super-app-theme--header",
     valueGetter: (params) =>
       params.row.answeredQuestions + params.row.createdQuestions,
   },
@@ -97,6 +103,9 @@ export default function LeaderBoardGrid() {
       style={{
         height: 400,
         width: "100%",
+        "& .super-app-theme--header": {
+          backgroundColor: "blue",
+        },
       }}
     >
       <DataGrid
@@ -107,6 +116,12 @@ export default function LeaderBoardGrid() {
         disableSelectionOnClick
         sortModel={sortModel}
         onSortModelChange={(model) => setSortModel(model)}
+        sx={{
+          "& .super-app-theme--header": {
+            backgroundColor: "primary.light",
+            color: "common.white",
+          },
+        }}
       />
     </Box>
   );
