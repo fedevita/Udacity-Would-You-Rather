@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import logo from "../../images/1_ISGtKTBwJem2C7tPfKL4-A.jpg";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/loggedUser";
 
 export default function SignIn() {
   const [age, setAge] = React.useState("");
@@ -21,7 +23,21 @@ export default function SignIn() {
   };
   const signInFunction = () => {
     alert("Sign In action!");
+    dispatch(
+      login({
+        id: "tylermcginnis",
+        name: "Tyler McGinnis",
+        avatarURL:
+          "https://gravatar.com/avatar/a2c75f9d12766c7a78fa176343db9b6a?s=400&d=retro&r=x",
+        answers: {
+          vthrdm985a262al8qx3do: "optionOne",
+          xj352vofupe1dqz9emx13r: "optionTwo",
+        },
+        questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
+      })
+    );
   };
+  const dispatch = useDispatch();
 
   const getUsersForLogin = (data) => {
     return (

@@ -7,13 +7,15 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import NewQuestion from "./pages/NewQuestion";
 import LeaderBoard from "./pages/LeaderBoard";
+import { useSelector } from "react-redux";
 const pages = [
   { id: "home", name: "Home" },
   { id: "NewQuestion", name: "New Question" },
   { id: "LeaderBoard", name: "Leader Board" },
 ];
 function App() {
-  const islogged = true;
+  const loggedUser = useSelector((state) => state.loggedUser.value);
+  const islogged = loggedUser ? true : false;
   return (
     <>
       {islogged && <Header pages={pages} />}

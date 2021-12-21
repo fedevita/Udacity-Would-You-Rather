@@ -14,13 +14,18 @@ import MenuItem from "@mui/material/MenuItem";
 import withRouter from "../../utils/withRouter";
 import { Outlet } from "react-router-dom";
 import { red } from "@mui/material/colors";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/loggedUser";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
   const { navigate } = props.router;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const pages = props.pages;
   const settings = ["Profile", "Logout"];
+  const loggedUser = useSelector((state) => state.loggedUser.value);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -31,6 +36,13 @@ const Header = (props) => {
 
   const handleClickNavMenu = (pageUrl) => {
     navigate(pageUrl);
+    setAnchorElNav(null);
+  };
+  const handleClickUserMenu = (action) => {
+    if (action === "Logout") {
+      dispatch(login(false));
+    }
+    navigate("");
     setAnchorElNav(null);
   };
 
@@ -117,14 +129,14 @@ const Header = (props) => {
                 padding: "1%",
               }}
             >
-              Hello, Nome Cognome
+              Hello, {loggedUser.name}
             </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Hi, Name Surname">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt="Remy Sharp"
-                    src="/static/images/avatar/2.jpg"
+                    alt={loggedUser.name}
+                    src={loggedUser.avatarURL}
                     sx={{ bgcolor: red[500], width: 56, height: 56 }}
                   />
                 </IconButton>
@@ -148,7 +160,7 @@ const Header = (props) => {
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting}
-                    onClick={() => handleClickNavMenu(`/${setting}`)}
+                    onClick={() => handleClickUserMenu(setting)}
                   >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
