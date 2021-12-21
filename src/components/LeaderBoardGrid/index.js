@@ -58,7 +58,6 @@ export default function LeaderBoardGrid(props) {
         createdQuestions: user.questions.length,
       };
     });
-    console.log(results);
     return results;
   };
 

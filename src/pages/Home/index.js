@@ -2,9 +2,46 @@ import { Box, Container } from "@mui/material";
 import React from "react";
 import CardFilter from "../../components/CardFilter";
 import QuestionCard from "../../components/QuestionCard";
+import { useSelector } from "react-redux";
+import EmptyCard from "../../components/EmptyCard";
 
 export default function Home() {
-  const cardnumber = [...Array(10).keys()];
+  const questions = useSelector((state) => state.questions.value).map((el) => {
+    return {
+      ...el,
+      Answered:
+        el.optionOne.votes.length + el.optionTwo.votes.length === 0
+          ? false
+          : true,
+    };
+  });
+  const filteredQuestions = (value) => {
+    let answeredQuesitons = [];
+    let unAnsweredQuesitons = [];
+    if (state.Answered === true) {
+      answeredQuesitons = value.filter((v) => v.Answered === true);
+    }
+    if (state.UnAnswered === true) {
+      unAnsweredQuesitons = value.filter((v) => v.Answered === false);
+    }
+    return [...answeredQuesitons, ...unAnsweredQuesitons];
+  };
+  const [state, setState] = React.useState({
+    Answered: true,
+    UnAnswered: true,
+  });
+  const handleAnswered = (event) => {
+    setState({
+      UnAnswered: state.UnAnswered,
+      Answered: event.target.checked,
+    });
+  };
+  const handleUnAnswered = (event) => {
+    setState({
+      Answered: state.Answered,
+      UnAnswered: event.target.checked,
+    });
+  };
   return (
     <React.Fragment>
       <Container disableGutters>
@@ -23,9 +60,19 @@ export default function Home() {
             paddingBottom: "20px",
           }}
         >
-          <CardFilter />
-          {cardnumber.map((x) => (
-            <QuestionCard key={x}></QuestionCard>
+          <CardFilter
+            state={state}
+            handleUnAnswered={handleUnAnswered}
+            handleAnswered={handleAnswered}
+          />
+          {filteredQuestions(questions).length === 0 && (
+            <EmptyCard text={"There are no elements!"} />
+          )}
+          {filteredQuestions(questions).map((question) => (
+            <QuestionCard
+              key={question.id}
+              questionData={question}
+            ></QuestionCard>
           ))}
         </Box>
       </Container>

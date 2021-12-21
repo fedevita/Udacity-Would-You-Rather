@@ -9,10 +9,22 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import { Button } from "@mui/material";
 
-export default function QuestionCard() {
+export default function QuestionCard(props) {
+  const data = props.questionData;
   return (
-    <Card sx={{ maxWidth: 500 }}>
+    <Card
+      sx={{
+        width: {
+          xs: "100%",
+          sm: "100%",
+          md: "40%",
+          lg: "40%",
+          xl: "40%",
+        },
+      }}
+    >
       <CardHeader
         avatar={
           <Avatar
@@ -24,24 +36,19 @@ export default function QuestionCard() {
         }
         title={
           <Typography variant="h5" color="text.secondary">
-            Name Surname asks:
+            {data.author} asks:
           </Typography>
         }
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          ...{data.optionOne.text}...
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+      <CardActions>
+        <Button fullWidth variant="contained">
+          View Poll
+        </Button>
       </CardActions>
     </Card>
   );

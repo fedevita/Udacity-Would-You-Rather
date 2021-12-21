@@ -39,7 +39,6 @@ export default function SignIn() {
 
   const signInFunction = () => {
     const data = users.filter((user) => user.id === currentUser)[0];
-    console.log(data);
     if (data === undefined) {
       setOpenSnack(true);
     } else {
