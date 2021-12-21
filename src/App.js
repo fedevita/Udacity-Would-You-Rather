@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getUsers } from "./features/users";
 import { getQuestions } from "./features/questions";
+import QuestionDetail from "./pages/QuestionDetail";
 
 const pages = [
   { id: "Home", name: "Home" },
@@ -31,6 +32,7 @@ function App() {
           <Route path="*" element={<Main />}>
             <Route path="" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home></Home>}></Route>
+            <Route path="Home/:id" element={<QuestionDetail />} />
             <Route path="NewQuestion" element={<NewQuestion />}></Route>
             <Route
               path="LeaderBoard"

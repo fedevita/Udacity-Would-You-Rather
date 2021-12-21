@@ -7,9 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { Button } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
 
-export default function QuestionCard(props) {
+export default function QuestionDetailCard(props) {
   const data = props.questionData;
   return (
     <Card
@@ -40,18 +39,19 @@ export default function QuestionCard(props) {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          ...{data.optionOne.text}...
+          {data.optionOne.text}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          OR
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {data.optionTwo.text}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button
-          fullWidth
-          variant="contained"
-          component={RouterLink}
-          to={data.id}
-        >
+        {/* <Button fullWidth variant="contained">
           View Poll
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
   );
