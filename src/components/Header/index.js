@@ -16,7 +16,7 @@ import { Outlet } from "react-router-dom";
 import { red } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/loggedUser";
+import { logout } from "../../features/loggedUser";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const Header = (props) => {
   };
   const handleClickUserMenu = (action) => {
     if (action === "Logout") {
-      dispatch(login(false));
+      dispatch(logout());
     }
     navigate("");
     setAnchorElNav(null);

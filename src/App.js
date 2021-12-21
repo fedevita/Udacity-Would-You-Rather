@@ -8,12 +8,17 @@ import Home from "./pages/Home";
 import NewQuestion from "./pages/NewQuestion";
 import LeaderBoard from "./pages/LeaderBoard";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getUsers } from "./features/users";
+
 const pages = [
   { id: "home", name: "Home" },
   { id: "NewQuestion", name: "New Question" },
   { id: "LeaderBoard", name: "Leader Board" },
 ];
 function App() {
+  const dispatch = useDispatch();
+  dispatch(getUsers());
   const loggedUser = useSelector((state) => state.loggedUser.value);
   const islogged = loggedUser ? true : false;
   return (
@@ -31,7 +36,7 @@ function App() {
             <Route path="Profile" element={<Box>Profile</Box>}></Route>
           </Route>
         )}
-        {!islogged && <Route path="" element={<SignInPage />} />}
+        {!islogged && <Route path="" element={<SignInPage />}></Route>}
       </Routes>
     </>
   );

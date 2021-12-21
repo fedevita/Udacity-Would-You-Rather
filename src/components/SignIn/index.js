@@ -5,52 +5,64 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  CircularProgress,
   FormControl,
   MenuItem,
   Select,
+  Snackbar,
   Typography,
 } from "@mui/material";
 import React from "react";
 import logo from "../../images/1_ISGtKTBwJem2C7tPfKL4-A.jpg";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/loggedUser";
+import { useSelector } from "react-redux";
+import MuiAlert from "@mui/material/Alert";
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function SignIn() {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  const signInFunction = () => {
-    alert("Sign In action!");
-    dispatch(
-      login({
-        id: "tylermcginnis",
-        name: "Tyler McGinnis",
-        avatarURL:
-          "https://gravatar.com/avatar/a2c75f9d12766c7a78fa176343db9b6a?s=400&d=retro&r=x",
-        answers: {
-          vthrdm985a262al8qx3do: "optionOne",
-          xj352vofupe1dqz9emx13r: "optionTwo",
-        },
-        questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
-      })
-    );
-  };
+  const [currentUser, setCurrentUser] = React.useState("");
+  const [openSnack, setOpenSnack] = React.useState(false);
   const dispatch = useDispatch();
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      setOpenSnack(false);
+    }
 
+    setOpenSnack(false);
+  };
+  const handleChange = (event) => {
+    setCurrentUser(event.target.value);
+  };
+
+  const signInFunction = () => {
+    const data = users.filter((user) => user.id === currentUser)[0];
+    console.log(data);
+    if (data === undefined) {
+      setOpenSnack(true);
+    } else {
+      dispatch(login(data));
+    }
+  };
+
+  const users = useSelector((state) => state.users.value);
+  const status = useSelector((state) => state.users.status);
   const getUsersForLogin = (data) => {
     return (
       <FormControl fullWidth>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={currentUser}
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {users.map((user) => (
+            <MenuItem key={user.id} value={user.id}>
+              {user.name}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     );
@@ -85,19 +97,42 @@ export default function SignIn() {
             >
               Would you rather?
             </Typography>
-            <Box sx={{ minWidth: 120 }}>{getUsersForLogin()}</Box>
+            {status !== "success" && (
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress />
+              </Box>
+            )}
+
+            {status === "success" && (
+              <Box sx={{ minWidth: 120 }}>{getUsersForLogin()}</Box>
+            )}
           </CardContent>
           <CardActions
             sx={{
               justifyContent: "center",
             }}
           >
-            <Button size="small" onClick={signInFunction}>
-              Sign In
-            </Button>
+            {status == "success" && (
+              <Button size="small" onClick={signInFunction}>
+                Sign In
+              </Button>
+            )}
           </CardActions>
         </Card>
       </Box>
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={6000}
+        onClose={handleCloseSnack}
+      >
+        <Alert
+          onClose={handleCloseSnack}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          Select at least one user, please.
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
