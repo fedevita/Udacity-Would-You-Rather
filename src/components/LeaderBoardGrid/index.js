@@ -6,21 +6,15 @@ const columns = [
   {
     field: "id",
     headerName: "ID",
-    width: 200,
+    flex: 1,
     headerAlign: "center",
     headerClassName: "super-app-theme--header",
+    hide: true,
   },
   {
-    field: "firstName",
-    headerName: "First name",
-    width: 200,
-    headerAlign: "center",
-    headerClassName: "super-app-theme--header",
-  },
-  {
-    field: "lastName",
-    headerName: "Last name",
-    width: 200,
+    field: "name",
+    headerName: "Name",
+    flex: 1,
     headerAlign: "center",
     headerClassName: "super-app-theme--header",
   },
@@ -28,7 +22,7 @@ const columns = [
     field: "answeredQuestions",
     headerName: "Answered Questions",
     type: "number",
-    width: 200,
+    flex: 1,
     headerAlign: "center",
     headerClassName: "super-app-theme--header",
   },
@@ -36,7 +30,7 @@ const columns = [
     field: "createdQuestions",
     headerName: "Created Questions",
     type: "number",
-    width: 200,
+    flex: 1,
     headerAlign: "center",
     headerClassName: "super-app-theme--header",
   },
@@ -44,7 +38,7 @@ const columns = [
     field: "score",
     headerName: "Score",
     description: "This column has a value getter and is not sortable.",
-    width: 200,
+    flex: 1,
     type: "number",
     headerAlign: "center",
     headerClassName: "super-app-theme--header",
@@ -53,45 +47,22 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    lastName: "Snow",
-    firstName: "Jon",
-    answeredQuestions: 3,
-    createdQuestions: 12,
-  },
-  {
-    id: 2,
-    lastName: "Snow",
-    firstName: "Jon",
-    answeredQuestions: 4,
-    createdQuestions: 12,
-  },
-  {
-    id: 3,
-    lastName: "Snow",
-    firstName: "Jon",
-    answeredQuestions: 5,
-    createdQuestions: 12,
-  },
-  {
-    id: 4,
-    lastName: "Snow",
-    firstName: "Jon",
-    answeredQuestions: 6,
-    createdQuestions: 12,
-  },
-  {
-    id: 5,
-    lastName: "Snow",
-    firstName: "Jon",
-    answeredQuestions: 7,
-    createdQuestions: 12,
-  },
-];
+export default function LeaderBoardGrid(props) {
+  const users = props.users;
+  const generateRows = (users) => {
+    const results = users.map((user) => {
+      return {
+        id: user.id,
+        name: user.name,
+        answeredQuestions: Object.values(user.answers).length,
+        createdQuestions: user.questions.length,
+      };
+    });
+    console.log(results);
+    return results;
+  };
 
-export default function LeaderBoardGrid() {
+  const rows = generateRows(users);
   const [sortModel, setSortModel] = React.useState([
     {
       field: "score",
@@ -113,6 +84,7 @@ export default function LeaderBoardGrid() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
+        disableExtendRowFullWidth={true}
         disableSelectionOnClick
         sortModel={sortModel}
         onSortModelChange={(model) => setSortModel(model)}

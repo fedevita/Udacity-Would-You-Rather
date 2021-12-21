@@ -1,8 +1,10 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 import LeaderBoardGrid from "../../components/LeaderBoardGrid";
+import { useSelector } from "react-redux";
 
 export default function LeaderBoard() {
+  const users = useSelector((state) => state.users.value);
   return (
     <Container disableGutters>
       <Box
@@ -20,7 +22,7 @@ export default function LeaderBoard() {
           paddingBottom: "20px",
         }}
       >
-        <LeaderBoardGrid></LeaderBoardGrid>
+        <LeaderBoardGrid users={users}></LeaderBoardGrid>
       </Box>
     </Container>
   );

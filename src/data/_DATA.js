@@ -127,8 +127,7 @@ function generateUID() {
 
 export function _getUsers() {
   return new Promise((res, rej) => {
-    // setTimeout(() => res({ ...users }), 1000);
-    setTimeout(() => res({ ...users }), 10000);
+    setTimeout(() => res({ ...users }), 1000);
   });
 }
 

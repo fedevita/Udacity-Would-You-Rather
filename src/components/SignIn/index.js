@@ -112,7 +112,7 @@ export default function SignIn() {
               justifyContent: "center",
             }}
           >
-            {status == "success" && (
+            {status === "success" && (
               <Button size="small" onClick={signInFunction}>
                 Sign In
               </Button>
