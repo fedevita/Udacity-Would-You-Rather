@@ -6,13 +6,15 @@ import { useSelector } from "react-redux";
 import EmptyCard from "../../components/EmptyCard";
 
 export default function Home() {
+  const loggeduser = useSelector((state) => state.loggedUser.value);
+  const users = useSelector((state) => state.users.value);
   const questions = useSelector((state) => state.questions.value).map((el) => {
     return {
       ...el,
+      userData: users.filter((us) => el.author === us.id)[0],
       Answered:
-        el.optionOne.votes.length + el.optionTwo.votes.length === 0
-          ? false
-          : true,
+        el.optionOne.votes.includes(loggeduser.id) ||
+        el.optionTwo.votes.includes(loggeduser.id),
     };
   });
   const filteredQuestions = (value) => {

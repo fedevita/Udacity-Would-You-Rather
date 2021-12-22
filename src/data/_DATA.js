@@ -2,8 +2,7 @@ let users = {
   sarahedo: {
     id: "sarahedo",
     name: "Sarah Edo",
-    avatarURL:
-      "https://gravatar.com/avatar/a2c75f9d12766c7a78fa176343db9b6a?s=400&d=retro&r=x",
+    avatarURL: "https://i.pravatar.cc/150?img=1",
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionTwo",
@@ -15,8 +14,7 @@ let users = {
   tylermcginnis: {
     id: "tylermcginnis",
     name: "Tyler McGinnis",
-    avatarURL:
-      "https://gravatar.com/avatar/a2c75f9d12766c7a78fa176343db9b6a?s=400&d=retro&r=x",
+    avatarURL: "https://i.pravatar.cc/150?img=6",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo",
@@ -26,8 +24,7 @@ let users = {
   johndoe: {
     id: "johndoe",
     name: "John Doe",
-    avatarURL:
-      "https://gravatar.com/avatar/a2c75f9d12766c7a78fa176343db9b6a?s=400&d=retro&r=x",
+    avatarURL: "https://i.pravatar.cc/150?img=3",
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",

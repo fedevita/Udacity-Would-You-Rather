@@ -10,6 +10,7 @@ import { Button } from "@mui/material";
 
 export default function QuestionDetailCard(props) {
   const data = props.questionData;
+  console.log(data);
   return (
     <Card
       sx={{
@@ -25,11 +26,10 @@ export default function QuestionDetailCard(props) {
       <CardHeader
         avatar={
           <Avatar
+            alt={data.userData.name}
+            src={data.userData.avatarURL}
             sx={{ bgcolor: red[500], width: 56, height: 56 }}
-            aria-label="recipe"
-          >
-            R
-          </Avatar>
+          />
         }
         title={
           <Typography variant="h5" color="text.secondary">
