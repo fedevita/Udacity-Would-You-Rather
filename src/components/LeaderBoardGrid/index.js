@@ -43,8 +43,13 @@ const columns = [
     type: "number",
     headerAlign: "center",
     headerClassName: "super-app-theme--header",
-    valueGetter: (params) =>
-      params.row.answeredQuestions + params.row.createdQuestions,
+  },
+  {
+    field: "position",
+    headerName: "Position",
+    flex: 1,
+    headerAlign: "center",
+    headerClassName: "super-app-theme--header",
   },
 ];
 
@@ -57,12 +62,24 @@ export default function LeaderBoardGrid() {
         name: user.name,
         answeredQuestions: Object.values(user.answers).length,
         createdQuestions: user.questions.length,
+        score: Object.values(user.answers).length + user.questions.length,
+        position: "normal",
       };
     });
     return results;
   };
+  const sortRows = (users) => {
+    const results = users.sort((a, b) =>
+      a.score < b.score ? 1 : b.score < a.score ? -1 : 0
+    );
+    results[0].position = "first";
+    results[1].position = "second";
+    results[2].position = "third";
+    return results;
+  };
 
-  const rows = generateRows(users);
+  const rows = sortRows(generateRows(users));
+  console.log(rows);
   const [sortModel, setSortModel] = React.useState([
     {
       field: "score",
@@ -74,9 +91,6 @@ export default function LeaderBoardGrid() {
       style={{
         height: 400,
         width: "100%",
-        "& .super-app-theme--header": {
-          backgroundColor: "blue",
-        },
       }}
     >
       <DataGrid
@@ -88,10 +102,29 @@ export default function LeaderBoardGrid() {
         disableSelectionOnClick
         sortModel={sortModel}
         onSortModelChange={(model) => setSortModel(model)}
+        getRowClassName={(params) =>
+          `super-app-theme--${params.getValue(params.id, "position")}`
+        }
         sx={{
           "& .super-app-theme--header": {
             backgroundColor: "primary.light",
             color: "common.white",
+          },
+          "& .super-app-theme--first": {
+            backgroundColor: "#FFD700",
+            color: "common.white",
+          },
+          "& .super-app-theme--second": {
+            backgroundColor: "#C0C0C0",
+            color: "common.white",
+          },
+          "& .super-app-theme--third": {
+            backgroundColor: "#CD7F32",
+            color: "common.white",
+          },
+          "& .super-app-theme--normal": {
+            backgroundColor: "common.white",
+            color: "text.secondary",
           },
         }}
       />
