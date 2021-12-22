@@ -18,7 +18,7 @@ const pages = [
   { id: "NewQuestion", name: "New Question" },
   { id: "LeaderBoard", name: "Leader Board" },
 ];
-function App() {
+function App(props) {
   const dispatch = useDispatch();
   dispatch(getUsers());
   dispatch(getQuestions());

@@ -11,8 +11,10 @@ import { Avatar, TextField } from "@mui/material";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { saveQuestions } from "../../features/questions";
+import withRouter from "../../utils/withRouter";
 
-export default function NewQuestionCard() {
+function NewQuestionCard(props) {
+  const { navigate } = props.router;
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.loggedUser.value);
   const validationSchema = Yup.object().shape({
@@ -33,6 +35,7 @@ export default function NewQuestionCard() {
       author: loggedUser.id,
     };
     dispatch(saveQuestions(formattedData));
+    navigate("/Home");
   };
   return (
     <Card
@@ -102,6 +105,7 @@ export default function NewQuestionCard() {
           variant="contained"
           color="primary"
           onClick={handleSubmit(onSubmit)}
+          fullWidth
         >
           Submit
         </Button>
@@ -109,3 +113,5 @@ export default function NewQuestionCard() {
     </Card>
   );
 }
+
+export default withRouter(NewQuestionCard);
