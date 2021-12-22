@@ -9,8 +9,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Avatar, TextField } from "@mui/material";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { useDispatch, useSelector } from "react-redux";
+import { saveQuestions } from "../../features/questions";
 
 export default function NewQuestionCard() {
+  const dispatch = useDispatch();
+  const loggedUser = useSelector((state) => state.loggedUser.value);
   const validationSchema = Yup.object().shape({
     OptionOne: Yup.string().required("Option One is required"),
     OptionTwo: Yup.string().required("Option Two is required"),
@@ -23,7 +27,12 @@ export default function NewQuestionCard() {
     resolver: yupResolver(validationSchema),
   });
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data, null, 2));
+    const formattedData = {
+      optionOneText: data.OptionOne,
+      optionTwoText: data.OptionTwo,
+      author: loggedUser.id,
+    };
+    dispatch(saveQuestions(formattedData));
   };
   return (
     <Card

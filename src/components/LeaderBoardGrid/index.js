@@ -1,6 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const columns = [
   {
@@ -47,8 +48,8 @@ const columns = [
   },
 ];
 
-export default function LeaderBoardGrid(props) {
-  const users = props.users;
+export default function LeaderBoardGrid() {
+  const users = useSelector((state) => state.users.value);
   const generateRows = (users) => {
     const results = users.map((user) => {
       return {
