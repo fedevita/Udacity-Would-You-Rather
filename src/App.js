@@ -32,7 +32,7 @@ function App(props) {
           <Route path="*" element={<Main />}>
             <Route path="" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home></Home>}></Route>
-            <Route path="Home/:id" element={<QuestionDetail />} />
+            <Route path="questions/:id" element={<QuestionDetail />} />
             <Route path="add" element={<NewQuestion />}></Route>
             <Route
               path="LeaderBoard"

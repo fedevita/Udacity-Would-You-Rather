@@ -71,12 +71,16 @@ export default function Home() {
           {filteredQuestions(questions).length === 0 && (
             <EmptyCard text={"There are no elements!"} />
           )}
-          {filteredQuestions(questions).map((question) => (
-            <QuestionCard
-              key={question.id}
-              questionData={question}
-            ></QuestionCard>
-          ))}
+          {filteredQuestions(questions)
+            .sort((a, b) =>
+              a.timestamp < b.timestamp ? 1 : b.timestamp < a.timestamp ? -1 : 0
+            )
+            .map((question) => (
+              <QuestionCard
+                key={question.id}
+                questionData={question}
+              ></QuestionCard>
+            ))}
         </Box>
       </Container>
     </React.Fragment>

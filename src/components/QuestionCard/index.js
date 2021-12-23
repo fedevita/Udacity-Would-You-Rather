@@ -47,7 +47,7 @@ export default function QuestionCard(props) {
           fullWidth
           variant="contained"
           component={RouterLink}
-          to={data.id}
+          to={`/questions/${data.id}`}
         >
           View Poll
         </Button>

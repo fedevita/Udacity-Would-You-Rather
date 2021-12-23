@@ -55,7 +55,7 @@ function NewQuestionCard(props) {
           sx={{
             width: "70px",
             height: "70px",
-            backgroundColor: "secondary.main",
+            backgroundColor: "primary.main",
           }}
         >
           <AddCircleIcon />
