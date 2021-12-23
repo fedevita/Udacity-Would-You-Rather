@@ -1,58 +1,114 @@
-import React from "react";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
-import { Button } from "@mui/material";
+import * as React from "react";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormLabel from "@mui/material/FormLabel";
+import Button from "@mui/material/Button";
+import { Avatar, Card, CardContent, Typography } from "@mui/material";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export default function QuestionDetailCard(props) {
-  const data = props.questionData;
-  console.log(data);
+  console.log(props);
+  const [value, setValue] = React.useState("");
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState("Select an answare");
+
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    setHelperText(" ");
+    setError(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (value !== undefined) {
+      //setHelperText("You got it!");
+      console.log(value);
+      setError(false);
+    } else {
+      setHelperText("Please select an option.");
+      setError(true);
+    }
+  };
+
   return (
     <Card
       sx={{
-        width: {
-          xs: "100%",
-          sm: "100%",
-          md: "40%",
-          lg: "40%",
-          xl: "40%",
-        },
+        width: { xs: "100%", sm: "100%", md: "90%", lg: "80%", xl: "60%" },
       }}
     >
-      <CardHeader
-        avatar={
-          <Avatar
-            alt={data.userData.name}
-            src={data.userData.avatarURL}
-            sx={{ bgcolor: red[500], width: 56, height: 56 }}
-          />
-        }
-        title={
-          <Typography variant="h5" color="text.secondary">
-            {data.author} asks:
-          </Typography>
-        }
-      />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {data.optionOne.text}
+      <CardContent
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar
+          sx={{
+            width: "70px",
+            height: "70px",
+            backgroundColor: "secondary.main",
+          }}
+          src={props.questionData.userData.avatarURL}
+        ></Avatar>
+        <Typography variant="h3" component="div" color="textSecondary">
+          Would you rather...
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          OR
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {data.optionTwo.text}
-        </Typography>
+        <form onSubmit={handleSubmit}>
+          <FormControl
+            sx={{ m: 3 }}
+            component="fieldset"
+            error={error}
+            variant="standard"
+          >
+            <RadioGroup
+              aria-label="quiz"
+              name="quiz"
+              value={value}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel
+                value={props.questionData.optionOne.text}
+                control={<Radio />}
+                label={
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    {props.questionData.optionOne.text}
+                  </Typography>
+                }
+              />
+              <Typography variant="h5" component="div" color="textSecondary">
+                OR..
+              </Typography>
+              <FormControlLabel
+                value={props.questionData.optionTwo.text}
+                control={<Radio />}
+                label={
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    {props.questionData.optionTwo.text}
+                  </Typography>
+                }
+              />
+            </RadioGroup>
+            <FormHelperText error="true">{helperText}</FormHelperText>
+            <Button variant="contained" color="primary" type="submit" fullWidth>
+              Submit
+            </Button>
+          </FormControl>
+        </form>
       </CardContent>
-      <CardActions>
-        {/* <Button fullWidth variant="contained">
-          View Poll
-        </Button> */}
-      </CardActions>
     </Card>
   );
 }
