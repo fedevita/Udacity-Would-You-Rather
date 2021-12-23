@@ -15,7 +15,7 @@ import QuestionDetail from "./pages/QuestionDetail";
 
 const pages = [
   { id: "Home", name: "Home" },
-  { id: "NewQuestion", name: "New Question" },
+  { id: "add", name: "New Question" },
   { id: "LeaderBoard", name: "Leader Board" },
 ];
 function App(props) {
@@ -33,7 +33,7 @@ function App(props) {
             <Route path="" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home></Home>}></Route>
             <Route path="Home/:id" element={<QuestionDetail />} />
-            <Route path="NewQuestion" element={<NewQuestion />}></Route>
+            <Route path="add" element={<NewQuestion />}></Route>
             <Route
               path="LeaderBoard"
               element={<LeaderBoard></LeaderBoard>}
