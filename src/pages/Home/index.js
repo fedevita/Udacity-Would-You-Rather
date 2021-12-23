@@ -30,7 +30,7 @@ export default function Home() {
     return [...answeredQuesitons, ...unAnsweredQuesitons];
   };
   const [state, setState] = React.useState({
-    Answered: true,
+    Answered: false,
     UnAnswered: true,
   });
   const handleAnswered = (event) => {
