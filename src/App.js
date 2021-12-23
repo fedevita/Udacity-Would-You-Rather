@@ -13,7 +13,7 @@ import QuestionDetail from "./pages/QuestionDetail";
 const pages = [
   { id: "Home", name: "Home" },
   { id: "add", name: "New Question" },
-  { id: "LeaderBoard", name: "Leader Board" },
+  { id: "leaderboard", name: "Leader Board" },
 ];
 function App(props) {
   const loggedUser = useSelector((state) => state.loggedUser.value);
@@ -29,7 +29,7 @@ function App(props) {
             <Route path="questions/:id" element={<QuestionDetail />} />
             <Route path="add" element={<NewQuestion />}></Route>
             <Route
-              path="LeaderBoard"
+              path="leaderboard"
               element={<LeaderBoard></LeaderBoard>}
             ></Route>
             <Route path="Profile" element={<Box>Profile</Box>}></Route>

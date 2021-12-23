@@ -1,11 +1,27 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getUsers } from "../../features/users";
 
 const columns = [
+  {
+    field: "avatar",
+    headerName: "Avatar",
+    flex: 1,
+    headerAlign: "center",
+    headerClassName: "super-app-theme--header",
+    renderCell: (params) => (
+      <>
+        <Avatar
+          alt={params.row.name}
+          src={params.row.avatar}
+          sx={{ width: 56, height: 56 }}
+        />
+      </>
+    ), // renderCell will render the component
+  },
   {
     field: "id",
     headerName: "ID",
@@ -64,6 +80,7 @@ export default function LeaderBoardGrid() {
   const generateRows = (users) => {
     const results = users.map((user) => {
       return {
+        avatar: user.avatarURL,
         id: user.id,
         name: user.name,
         answeredQuestions: Object.values(user.answers).length,
