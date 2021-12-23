@@ -4,8 +4,16 @@ import CardFilter from "../../components/CardFilter";
 import QuestionCard from "../../components/QuestionCard";
 import { useSelector } from "react-redux";
 import EmptyCard from "../../components/EmptyCard";
-
+import { useDispatch } from "react-redux";
+import { getUsers } from "../../features/users";
+import { getQuestions } from "../../features/questions";
 export default function Home() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getUsers());
+    dispatch(getQuestions());
+  }, [dispatch]);
+
   const loggeduser = useSelector((state) => state.loggedUser.value);
   const users = useSelector((state) => state.users.value);
   const questions = useSelector((state) => state.questions.value).map((el) => {

@@ -14,7 +14,6 @@ export const saveQuestions = createAsyncThunk(
   "questions/saveQuestions",
   async (params) => {
     const response = await saveQuestionsApi(params);
-    console.log(response);
     return response;
   }
 );
@@ -22,7 +21,6 @@ export const saveQuestionAnswer = createAsyncThunk(
   "questions/saveQuestionAnswer",
   async (params) => {
     const response = await saveQuestionAnswerApi(params);
-    console.log(response);
     return response;
   }
 );

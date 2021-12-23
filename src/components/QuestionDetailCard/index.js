@@ -20,7 +20,6 @@ import { Box } from "@mui/system";
 export default function QuestionDetailCard(props) {
   const dispatch = useDispatch();
   const answered = props.questionData.Answered;
-  console.log(answered);
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("Select an answare");
@@ -41,7 +40,6 @@ export default function QuestionDetailCard(props) {
         qid: props.questionData.id,
         answer: value,
       };
-      console.log(formattedData);
       setError(false);
       dispatch(saveQuestionAnswer(formattedData));
     } else {

@@ -17,6 +17,7 @@ import logo from "../../images/1_ISGtKTBwJem2C7tPfKL4-A.jpg";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/loggedUser";
 import { useSelector } from "react-redux";
+import { getUsers } from "../../features/users";
 import MuiAlert from "@mui/material/Alert";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,6 +27,10 @@ export default function SignIn() {
   const [currentUser, setCurrentUser] = React.useState("");
   const [openSnack, setOpenSnack] = React.useState(false);
   const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
   const handleCloseSnack = (event, reason) => {
     if (reason === "clickaway") {
       setOpenSnack(false);

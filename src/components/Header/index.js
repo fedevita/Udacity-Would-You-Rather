@@ -17,6 +17,7 @@ import { red } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/loggedUser";
+import { LinearProgress } from "@mui/material";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const Header = (props) => {
   const pages = props.pages;
   const settings = ["Profile", "Logout"];
   const loggedUser = useSelector((state) => state.loggedUser.value);
+  const statusUsers = useSelector((state) => state.users.status);
+  const statusQuestions = useSelector((state) => state.questions.status);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -170,6 +173,14 @@ const Header = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
+      {(statusUsers === "loading" || statusQuestions === "loading") && (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress
+            sx={{ color: "warning.main", backgroundColor: "common.white" }}
+          />
+        </Box>
+      )}
+
       <Outlet />
     </>
   );

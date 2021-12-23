@@ -8,9 +8,6 @@ import Home from "./pages/Home";
 import NewQuestion from "./pages/NewQuestion";
 import LeaderBoard from "./pages/LeaderBoard";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getUsers } from "./features/users";
-import { getQuestions } from "./features/questions";
 import QuestionDetail from "./pages/QuestionDetail";
 
 const pages = [
@@ -19,9 +16,6 @@ const pages = [
   { id: "LeaderBoard", name: "Leader Board" },
 ];
 function App(props) {
-  const dispatch = useDispatch();
-  dispatch(getUsers());
-  dispatch(getQuestions());
   const loggedUser = useSelector((state) => state.loggedUser.value);
   const islogged = loggedUser ? true : false;
   return (

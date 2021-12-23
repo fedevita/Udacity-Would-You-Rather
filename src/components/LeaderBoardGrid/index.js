@@ -2,6 +2,8 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getUsers } from "../../features/users";
 
 const columns = [
   {
@@ -54,6 +56,10 @@ const columns = [
 ];
 
 export default function LeaderBoardGrid() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
   const users = useSelector((state) => state.users.value);
   const generateRows = (users) => {
     const results = users.map((user) => {
@@ -79,7 +85,6 @@ export default function LeaderBoardGrid() {
   };
 
   const rows = sortRows(generateRows(users));
-  console.log(rows);
   const [sortModel, setSortModel] = React.useState([
     {
       field: "score",

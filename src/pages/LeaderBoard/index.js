@@ -1,12 +1,8 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 import LeaderBoardGrid from "../../components/LeaderBoardGrid";
-import { useDispatch } from "react-redux";
-import { getUsers } from "../../features/users";
 
 export default function LeaderBoard() {
-  const dispatch = useDispatch();
-  dispatch(getUsers());
   return (
     <Container disableGutters>
       <Box
