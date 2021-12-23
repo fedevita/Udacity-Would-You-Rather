@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getQuestionsApi from "../../api/questionsApi/getQuestions";
+import saveQuestionAnswerApi from "../../api/questionsApi/saveQuestionAnswer";
 import saveQuestionsApi from "../../api/questionsApi/saveQuestions";
 
 export const getQuestions = createAsyncThunk(
@@ -13,6 +14,14 @@ export const saveQuestions = createAsyncThunk(
   "questions/saveQuestions",
   async (params) => {
     const response = await saveQuestionsApi(params);
+    console.log(response);
+    return response;
+  }
+);
+export const saveQuestionAnswer = createAsyncThunk(
+  "questions/saveQuestionAnswer",
+  async (params) => {
+    const response = await saveQuestionAnswerApi(params);
     console.log(response);
     return response;
   }
@@ -48,6 +57,16 @@ export const questionsSlice = createSlice({
       state.status = "success";
     },
     [saveQuestions.rejected]: (state, action) => {
+      state.status = "failed";
+    },
+    [saveQuestionAnswer.pending]: (state, action) => {
+      state.status = "loading";
+    },
+    [saveQuestionAnswer.fulfilled]: (state, action) => {
+      state.value = action.payload;
+      state.status = "success";
+    },
+    [saveQuestionAnswer.rejected]: (state, action) => {
       state.status = "failed";
     },
   },

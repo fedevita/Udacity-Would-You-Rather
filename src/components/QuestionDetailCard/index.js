@@ -8,9 +8,12 @@ import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import { Avatar, Card, CardContent, Typography } from "@mui/material";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-
+import { useDispatch } from "react-redux";
+import { saveQuestionAnswer } from "../../features/questions";
 export default function QuestionDetailCard(props) {
-  console.log(props);
+  const dispatch = useDispatch();
+  const answered = props.questionData.Answered;
+  console.log(answered);
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("Select an answare");
@@ -26,8 +29,14 @@ export default function QuestionDetailCard(props) {
 
     if (value !== undefined) {
       //setHelperText("You got it!");
-      console.log(value);
+      const formattedData = {
+        authedUser: props.questionData.loggedUserData.id,
+        qid: props.questionData.id,
+        answer: value,
+      };
+      console.log(formattedData);
       setError(false);
+      dispatch(saveQuestionAnswer(formattedData));
     } else {
       setHelperText("Please select an option.");
       setError(true);
@@ -56,58 +65,73 @@ export default function QuestionDetailCard(props) {
           }}
           src={props.questionData.userData.avatarURL}
         ></Avatar>
-        <Typography variant="h3" component="div" color="textSecondary">
-          Would you rather...
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <FormControl
-            sx={{ m: 3 }}
-            component="fieldset"
-            error={error}
-            variant="standard"
-          >
-            <RadioGroup
-              aria-label="quiz"
-              name="quiz"
-              value={value}
-              onChange={handleRadioChange}
-            >
-              <FormControlLabel
-                value={props.questionData.optionOne.text}
-                control={<Radio />}
-                label={
+        {answered ? (
+          <div>ciao</div>
+        ) : (
+          <>
+            <Typography variant="h3" component="div" color="textSecondary">
+              Would you rather...
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <FormControl
+                sx={{ m: 3 }}
+                component="fieldset"
+                error={error}
+                variant="standard"
+              >
+                <RadioGroup
+                  aria-label="quiz"
+                  name="quiz"
+                  value={value}
+                  onChange={handleRadioChange}
+                >
+                  <FormControlLabel
+                    value="optionOne"
+                    control={<Radio />}
+                    label={
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        color="textSecondary"
+                      >
+                        {props.questionData.optionOne.text}
+                      </Typography>
+                    }
+                  />
                   <Typography
-                    variant="h6"
+                    variant="h5"
                     component="div"
                     color="textSecondary"
                   >
-                    {props.questionData.optionOne.text}
+                    OR..
                   </Typography>
-                }
-              />
-              <Typography variant="h5" component="div" color="textSecondary">
-                OR..
-              </Typography>
-              <FormControlLabel
-                value={props.questionData.optionTwo.text}
-                control={<Radio />}
-                label={
-                  <Typography
-                    variant="h6"
-                    component="div"
-                    color="textSecondary"
-                  >
-                    {props.questionData.optionTwo.text}
-                  </Typography>
-                }
-              />
-            </RadioGroup>
-            <FormHelperText error="true">{helperText}</FormHelperText>
-            <Button variant="contained" color="primary" type="submit" fullWidth>
-              Submit
-            </Button>
-          </FormControl>
-        </form>
+                  <FormControlLabel
+                    value="optionTwo"
+                    control={<Radio />}
+                    label={
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        color="textSecondary"
+                      >
+                        {props.questionData.optionTwo.text}
+                      </Typography>
+                    }
+                  />
+                </RadioGroup>
+                <FormHelperText error="true">{helperText}</FormHelperText>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  fullWidth
+                >
+                  Submit
+                </Button>
+              </FormControl>
+            </form>
+          </>
+        )}
       </CardContent>
     </Card>
   );

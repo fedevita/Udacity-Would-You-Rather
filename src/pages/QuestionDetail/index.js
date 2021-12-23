@@ -13,6 +13,7 @@ export default function QuestionDetail() {
     return {
       ...el,
       userData: users.filter((us) => el.author === us.id)[0],
+      loggedUserData: loggeduser,
       Answered:
         el.optionOne.votes.includes(loggeduser.id) ||
         el.optionTwo.votes.includes(loggeduser.id),
