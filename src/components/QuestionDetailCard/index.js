@@ -6,10 +6,17 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
-import { Avatar, Card, CardContent, Typography } from "@mui/material";
+import {
+  Avatar,
+  Card,
+  CardContent,
+  LinearProgress,
+  Typography,
+} from "@mui/material";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useDispatch } from "react-redux";
 import { saveQuestionAnswer } from "../../features/questions";
+import { Box } from "@mui/system";
 export default function QuestionDetailCard(props) {
   const dispatch = useDispatch();
   const answered = props.questionData.Answered;
@@ -66,7 +73,69 @@ export default function QuestionDetailCard(props) {
           src={props.questionData.userData.avatarURL}
         ></Avatar>
         {answered ? (
-          <div>ciao</div>
+          <>
+            <Typography variant="h3" component="div" color="textSecondary">
+              Results:
+            </Typography>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", gridGap: "20px" }}
+            >
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    gridGap: "10px",
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    {props.questionData.optionOne.text}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: "100%",
+                    }}
+                  >
+                    <LinearProgress
+                      variant="determinate"
+                      value="30"
+                    ></LinearProgress>
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    30%
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    2 out of 3 votes
+                  </Typography>
+                </CardContent>
+              </Card>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    {props.questionData.optionTwo.text}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          </>
         ) : (
           <>
             <Typography variant="h3" component="div" color="textSecondary">
