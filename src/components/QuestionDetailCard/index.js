@@ -102,7 +102,7 @@ export default function QuestionDetailCard(props) {
                   >
                     <LinearProgress
                       variant="determinate"
-                      value="30"
+                      value={30}
                     ></LinearProgress>
                   </Box>
                   <Typography
