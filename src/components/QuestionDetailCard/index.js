@@ -4,7 +4,6 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 import {
   Avatar,
@@ -13,7 +12,6 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { useDispatch } from "react-redux";
 import { saveQuestionAnswer } from "../../features/questions";
 import { Box } from "@mui/system";
@@ -186,7 +184,7 @@ export default function QuestionDetailCard(props) {
                     }
                   />
                 </RadioGroup>
-                <FormHelperText error="true">{helperText}</FormHelperText>
+                <FormHelperText error={true}>{helperText}</FormHelperText>
                 <Button
                   variant="contained"
                   color="primary"
