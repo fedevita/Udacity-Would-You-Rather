@@ -3,7 +3,6 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import Button from "@mui/material/Button";
 import {
   Avatar,
@@ -18,32 +17,21 @@ import { Box } from "@mui/system";
 export default function QuestionDetailCard(props) {
   const dispatch = useDispatch();
   const answered = props.questionData.Answered;
-  const [value, setValue] = React.useState("");
-  const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState("Select an answare");
+  const [value, setValue] = React.useState("optionOne");
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
-    setHelperText(" ");
-    setError(false);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (value !== undefined) {
-      //setHelperText("You got it!");
-      const formattedData = {
-        authedUser: props.questionData.loggedUserData.id,
-        qid: props.questionData.id,
-        answer: value,
-      };
-      setError(false);
-      dispatch(saveQuestionAnswer(formattedData));
-    } else {
-      setHelperText("Please select an option.");
-      setError(true);
-    }
+    //setHelperText("You got it!");
+    const formattedData = {
+      authedUser: props.questionData.loggedUserData.id,
+      qid: props.questionData.id,
+      answer: value,
+    };
+    dispatch(saveQuestionAnswer(formattedData));
   };
 
   return (
@@ -100,7 +88,14 @@ export default function QuestionDetailCard(props) {
                   >
                     <LinearProgress
                       variant="determinate"
-                      value={30}
+                      value={Number(
+                        (
+                          (props.questionData.optionOne.votes.length /
+                            (props.questionData.optionOne.votes.length +
+                              props.questionData.optionTwo.votes.length)) *
+                          100
+                        ).toFixed(2)
+                      )}
                     ></LinearProgress>
                   </Box>
                   <Typography
@@ -108,25 +103,82 @@ export default function QuestionDetailCard(props) {
                     component="div"
                     color="textSecondary"
                   >
-                    30%
+                    {(
+                      (props.questionData.optionOne.votes.length /
+                        (props.questionData.optionOne.votes.length +
+                          props.questionData.optionTwo.votes.length)) *
+                      100
+                    ).toFixed(2)}
+                    %
                   </Typography>
                   <Typography
                     variant="h6"
                     component="div"
                     color="textSecondary"
                   >
-                    2 out of 3 votes
+                    {props.questionData.optionOne.votes.length} out of{" "}
+                    {props.questionData.optionOne.votes.length +
+                      props.questionData.optionTwo.votes.length}{" "}
+                    votes
                   </Typography>
                 </CardContent>
               </Card>
               <Card sx={{ minWidth: 275 }}>
-                <CardContent>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    gridGap: "10px",
+                  }}
+                >
                   <Typography
                     variant="h6"
                     component="div"
                     color="textSecondary"
                   >
                     {props.questionData.optionTwo.text}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: "100%",
+                    }}
+                  >
+                    <LinearProgress
+                      variant="determinate"
+                      value={Number(
+                        (
+                          (props.questionData.optionTwo.votes.length /
+                            (props.questionData.optionOne.votes.length +
+                              props.questionData.optionTwo.votes.length)) *
+                          100
+                        ).toFixed(2)
+                      )}
+                    ></LinearProgress>
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    {(
+                      (props.questionData.optionTwo.votes.length /
+                        (props.questionData.optionOne.votes.length +
+                          props.questionData.optionTwo.votes.length)) *
+                      100
+                    ).toFixed(2)}
+                    %
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    color="textSecondary"
+                  >
+                    {props.questionData.optionTwo.votes.length} out of{" "}
+                    {props.questionData.optionOne.votes.length +
+                      props.questionData.optionTwo.votes.length}{" "}
+                    votes
                   </Typography>
                 </CardContent>
               </Card>
@@ -141,7 +193,6 @@ export default function QuestionDetailCard(props) {
               <FormControl
                 sx={{ m: 3 }}
                 component="fieldset"
-                error={error}
                 variant="standard"
               >
                 <RadioGroup
@@ -184,7 +235,6 @@ export default function QuestionDetailCard(props) {
                     }
                   />
                 </RadioGroup>
-                <FormHelperText error={true}>{helperText}</FormHelperText>
                 <Button
                   variant="contained"
                   color="primary"
