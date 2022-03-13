@@ -73,6 +73,15 @@ export default function QuestionDetailCard(props) {
                     flexDirection: "column",
                     gridGap: "10px",
                   }}
+                  style={{
+                    backgroundColor:
+                      props.questionData.optionOne.votes.find(
+                        (element) =>
+                          element === props.questionData.loggedUserData.id
+                      ) !== undefined
+                        ? "#81c784"
+                        : null,
+                  }}
                 >
                   <Typography
                     variant="h6"
@@ -131,6 +140,15 @@ export default function QuestionDetailCard(props) {
                     alignItems: "center",
                     flexDirection: "column",
                     gridGap: "10px",
+                  }}
+                  style={{
+                    backgroundColor:
+                      props.questionData.optionTwo.votes.find(
+                        (element) =>
+                          element === props.questionData.loggedUserData.id
+                      ) !== undefined
+                        ? "#81c784"
+                        : null,
                   }}
                 >
                   <Typography
